@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Songs and Stuff</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/js/jquery-1.12.4.min.js">\x3C/script>')</script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="Website/main.css" />
+</head>
+
+<body background="Website/albumsFade1.png">
+
+  <div id="nav-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header"><a class="navbar-brand" href="https://lealamatina.github.io/Song_Data_Analysis/Index.html">Final Project</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse navbar-menubuilder">
+        <ul class="nav navbar-nav navbar-right">
+      
+          <li>
+            <div class="dropdown show">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Group Members
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="https://github.com/grahamb001" target="_blank">Brandi Graham</a>
+                <br>
+                <a class="dropdown-item" href="https://github.com/jwhlaforest" target="_blank">J&#233;r&#244;me Laforest</a>
+                <br>
+                <a class="dropdown-item" href="https://github.com/LeaLamatina" target="_blank">Lea Lamatina</a>
+                <br>
+                <a class="dropdown-item" href="https://github.com/bmonroe44" target="_blank">Brian Monroe</a>
+                <br>
+                <a class="dropdown-item" href="https://github.com/nikkistatum" target="_blank">Nikki Statum</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="https://lealamatina.github.io/Song_Data_Analysis/SpotifyAudio.html">Spotify Audio Analysis</a>
+          </li>
+          <li>
+            <a href="https://lealamatina.github.io/Song_Data_Analysis/BillboardTop100.html">Billboard Top 100</a>
+          </li>
+          <li>
+            <a href="https://lealamatina.github.io/Song_Data_Analysis/Data.html">Data</a>
+          </li>
+          <li>
+            <a href="https://github.com/LeaLamatina/Song_Data_Analysis" target="blank">GitHub Repository</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script>
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = 'BQDlFrgQn31l8tn_SaOpjybQr5Awuf4FvXUNNG5CWIMaMru3ytutT1y-hxE3_tP2c_T-fXMDH7Tg3DOid8id9WLEB_n0hQbL90tXJ_XkzdNJgv0iJd0j3h7IFF8R6WA4jOJQlgzyNqRa9Anum7iOsmVP_YCiTQoeux-9Xb0';
+    const player = new Spotify.Player({
+      name: 'Songify.html Stream',
+      getOAuthToken: cb => { cb(token); }
+    });
+
+    // Error handling
+    player.addListener('initialization_error', ({ message }) => { console.error(message); });
+    player.addListener('authentication_error', ({ message }) => { console.error(message); });
+    player.addListener('account_error', ({ message }) => { console.error(message); });
+    player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+    // Playback status updates
+    player.addListener('player_state_changed', state => { console.log(state); });
+
+    // Ready
+    player.addListener('ready', ({ device_id }) => {
+      console.log('Ready with Device ID', device_id);
+    });
+
+    // Not Ready
+    player.addListener('not_ready', ({ device_id }) => {
+      console.log('Device ID has gone offline', device_id);
+    });
+
+    // Connect to the player!
+    player.connect();
+  };
+  </script>
+
+  <div class="jumbotron">
+      <h1>Spotify Song Analysis</h1>
+      <hr>
+      <p>Using machine learning to try and predict the popularity of songs.</p>
+  </div>
+
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-md-9">
+        <h2>BUSINESS OBJECTIVES:</h2>
+        <p>To investigate Billboard data from 1950-2015 as well as audio information of the top 10,000 songs on Spotify to determine if data can be used to predict song popularity.</p>
+        <h2>RESEARCH QUESTIONS & HYPOTHESES:</h2>
+        <p>Do songs from certain genres have more complex lyrics? How does popularity of genres trend over time? Are songs lyrics becoming more repetitive over time? Which artitist has spent the most time on the top 100 Billboard charts? Which artist have the most songs that have appeared on the top 100 Billboard? Are the more successful artist cross over multiple genres?</p>
+        <h2>DATA CHALLENGES/LIMITATIONS:</h2>
+        <p>When reviewing lyrics we must take into consideration that certain genres will have more lyrics than others and might skew if we fail to average the data in our visuals.</p>
+        <p>Multiple genres for one song for instance Michael Jackson crosses multiple genres. USA data only For 1950-1955, there are only the top 30 songs on that site Limited by the pre-established bins that Billboard has put together. For instance, R&B and Hip Hop are bunched together.</p>
+        <h2>DATA SOURCES:</h2>
+        <p>http://www.bobborst.com/popculture/top-100-songs-of-the-year/?year=2015 https://developer.spotify.com/documentation/web-api/ https://en.wikipedia.org/wiki/Billboard_charts</p>
+      </div>
+      
+      <div class="col-md-3">
+        <h3>Our Favourite Songs</h3>
+        <ul>
+          <li>Brandi
+              <a href="https://www.youtube.com/watch?v=DPL_SV3n7IU&t=0s&list=PLNzLHB1SmN-Z8Hk8bmqiSPk-e4UGfS0kq&index=15" target="blank"><img class="albumart" src="https://images-na.ssl-images-amazon.com/images/I/71m0ofUWYXL._SL1300_.jpg" width="60" align="right"></a>
+            <ul>
+              <li><a href="https://www.youtube.com/watch?v=DPL_SV3n7IU&t=0s&list=PLNzLHB1SmN-Z8Hk8bmqiSPk-e4UGfS0kq&index=15" target="blank">Pink Floyd<br>Wish You Were Here</a></li>
+            </ul>
+          </li>
+          <li>J&#233;r&#244;me
+              <a href="https://www.youtube.com/watch?v=EDvRs3SceGo" target="blank"><img class="albumart" src="https://images-na.ssl-images-amazon.com/images/I/81XPW2Xz2qL._SL1500_.jpg" width="60" align="right"></a>
+            <ul>
+              <li><a href="https://www.youtube.com/watch?v=EDvRs3SceGo" target="blank">Backstreet Boys<br>Just Want You to Know</a></li>
+            </ul>
+          </li>
+          <li>Lea
+              <a href="https://www.youtube.com/watch?v=Zp-LBD_q0sQ" target="blank"><img class="albumart" src="https://images-na.ssl-images-amazon.com/images/I/712vB0qw1IL._SX355_.jpg" width="60" align="right"></a>
+            <ul>
+              <li><a href="https://www.youtube.com/watch?v=Zp-LBD_q0sQ" target="blank">Led Zeppelin<br>Fool in the Rain</a></li>
+            </ul>
+          </li>
+          <br>
+          <li>Brian
+              <a href="https://www.youtube.com/watch?v=bHR0MBF-AZc" target="blank"><img class="albumart" src="https://images-na.ssl-images-amazon.com/images/I/411RYY901TL.jpg" width="60" align="right"></a>
+            <ul>
+              <li><a href="https://www.youtube.com/watch?v=bHR0MBF-AZc" target="blank">The Smashing Pumpkins<br>Muzzle</a></li>
+            </ul>
+          </li>
+          <li>Nikki
+              <a href="https://www.youtube.com/watch?v=GYQfWJNWe3I" target="blank"><img class="albumart" src="https://images-na.ssl-images-amazon.com/images/I/71j8hhKN7fL._SL1400_.jpg" width="60" align="right"></a>
+            <ul>
+              <li><a href="https://www.youtube.com/watch?v=GYQfWJNWe3I" target="blank">Stevie Wonder<br>As</a></li>
+            </ul>
+          </li>
+        </ul>
+        <iframe src="https://open.spotify.com/embed/user/123157574/playlist/1pIOwE7N3TBq35PFHlD89C" width="275" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
